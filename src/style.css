@@ -1,0 +1,26 @@
+
+
+@import "@/assets/fonts/flaticon/flaticon.css";
+@import "@/assets/fonts/icofont/icofont.min.css";
+@import "@/assets/fonts/fontawesome/fontawesome.min.css";
+@import "@/assets/vendor/venobox/venobox.min.css";
+@import "@/assets/vendor/slickslider/slick.min.css";
+@import "@/assets/vendor/niceselect/nice-select.min.css";
+@import "@/assets/vendor/bootstrap/bootstrap.min.css";
+
+
+
+@import "@/assets/css/about.css";
+@import "@/assets/css/checkout.css";
+@import "@/assets/css/contact.css";
+@import "@/assets/css/dropdown.css";
+@import "@/assets/css/error.css";
+@import "@/assets/css/home-category.css";
+@import "@/assets/css/invoice.css";
+@import "@/assets/css/main.css";
+@import "@/assets/css/orderlist.css";
+@import "@/assets/css/product-details.css";
+@import "@/assets/css/product-grid.css";
+@import "@/assets/css/profile.css";
+@import "@/assets/css/user-auth.css";
+@import "@/assets/css/wishlist.css";
