@@ -5,6 +5,26 @@ function menuclose() {
     $(".nav-sidebar").removeClass("active"),
     $(".backdrop").fadeOut();
 }
+
+function cartBtn(){
+    $("body").css("overflow", "hidden"),
+      $(".cart-sidebar").addClass("active");
+     
+} // End Cart Button
+
+
+function cateBtn(){
+    $("body").css("overflow", "hidden"),
+      $(".category-sidebar").addClass("active");
+} // End 
+
+
+function cateClose(){
+  
+        $("body").css("overflow", "inherit"),
+          $(".category-sidebar").removeClass("active"),
+          $(".backdrop").fadeOut();
+} // End 
 </script>
 
 <template lang="">
@@ -14,7 +34,7 @@ function menuclose() {
         <h4 class="category-title">
           <i class="fas fa-align-left"></i><span>categories</span>
         </h4>
-        <button class="category-close"><i class="icofont-close"></i></button>
+        <button class="category-close" @click="cateClose" ><i class="icofont-close"></i></button>
       </div>
       <ul class="category-list">
         <li class="category-item">
@@ -190,10 +210,10 @@ function menuclose() {
         aria-current="page"
         ><i class="fas fa-home"></i><span>Home</span></a
       >
-      <button class="cate-btn" title="Category List">
+      <button class="cate-btn" @click="cateBtn" title="Category List">
         <i class="fas fa-list"></i><span>category</span>
       </button>
-      <button class="cart-btn" title="Cartlist">
+      <button class="cart-btn" @click="cartBtn" title="Cartlist">
         <i class="fas fa-shopping-basket"></i><span>Cart</span><sup>2</sup>
       </button>
       <a href="/my-wishist" class="" title="Wishlist"

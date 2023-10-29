@@ -6,6 +6,10 @@
       
  }// cartClose
 
+
+ const  couponBtn = ()=>{
+    $("coupon-btn").hide(), $(".coupon-form").css("display", "flex");
+ }// couponBtn
 </script>
 <template lang="">
     <div>
@@ -134,7 +138,7 @@
       </li>
     </ul>
     <div class="cart-footer">
-      <button class="coupon-btn">Do you have a coupon code?</button>
+      <button class="coupon-btn" @click="couponBtn" >Do you have a coupon code?</button>
       <form class="coupon-form">
         <input type="text" placeholder="Enter your coupon code" /><button type="submit">
           <span>apply</span>
