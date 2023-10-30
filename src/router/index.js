@@ -25,9 +25,10 @@ const router = createRouter({
 });
 
 
+const default_title = "404";
 
 router.beforeEach((to, from, next) => {
- document.title = to.meta.title;
+ document.title = to.meta.title || default_title;
  next();
 })
 
