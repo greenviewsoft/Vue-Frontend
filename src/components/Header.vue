@@ -51,9 +51,9 @@ function menu() {
               <i class="fas fa-search"></i>
             </button>
           </div>
-          <router-link :to="{name: 'index.page' }" class="header-logo"
-            > <img src="@/assets/images/logo.png" alt="logo"
-          /></router-link> 
+          <router-link :to="{name: 'index.page' }" class="header-logo">
+  <img src="@/assets/images/logo.png" alt="logo">
+</router-link>
 
           <form class="header-form">
             <input type="text" placeholder="Search anything..." /><button>
@@ -80,8 +80,7 @@ function menu() {
                 <li>
                   <router-link
                     :to="{ name: 'user.register' }"
-                    class="dropdown-item"
-                  >
+                    class="dropdown-item">
                     Register</router-link
                   >
                 </li>
