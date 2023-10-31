@@ -230,13 +230,13 @@ const newSlide = ref([Navigation])
                 </div>
                 <button class="product-wish wish">
                   <i class="fas fa-heart"></i></button
-                ><a class="product-image" href="product-video.html"
+                ><router-link :to="{name: 'product.details'}" class="product-image"
                   ><img src="@/assets/images/product/01.jpg" alt="product"
-                /></a>
+                /></router-link> 
               </div>
               <div class="product-content">
                 <h6 class="product-name">
-                  <a href="product-video.html">Products Name</a>
+                  <router-link :to="{name: 'product.details'}" >Products Name</router-link >
                 </h6>
                 <h6 class="product-price">
                   <del>$34</del><span>$28<small></small></span>
