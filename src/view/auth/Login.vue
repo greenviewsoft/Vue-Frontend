@@ -13,13 +13,13 @@ const schema = yup.object({
 const auth = useAuth();
 const { errors} = storeToRefs(auth);
 
-const form = reactive({
-  phone: "",
-  password: "",
-});
+// const form = reactive({
+//   phone: "",
+//   password: "",
+// });
 
 const onSubmit = async (values, { setErrors }) => {
-  const res = await auth.login(form);
+  const res = await auth.login(values);
   if (res.data) {
 alert("login success");
   }else {
@@ -59,7 +59,7 @@ const toggleShow = () => {
                         type="text"
                         class="form-control"
                         placeholder="phone no"
-                        v-model="form.phone"
+                      
                         :class="{ 'is-invalid': errors.phone }"
                       /><!--v-if-->
 
@@ -72,7 +72,7 @@ const toggleShow = () => {
                         :type="showPassword ? 'text' : 'password' "
                         class="form-control"
                         placeholder="password"
-                        v-model="form.password"
+                     
                         :class="{ 'is-invalid': errors.password }"
                       />
 
