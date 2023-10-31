@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Index, Shop,SingleProduct,Checkout  } from "@/view/pages";
+import { useAuth } from "@/stores";
+import { Index, Shop, SingleProduct, Checkout } from "@/view/pages";
 import { UserLogin, UserRegister } from "@/view/auth";
-import { SellerPage,SellerStore,SellerApply  } from "@/view/pages/seller";
-import {MyProfile,MyOrderList,Wishlist} from "@/view/user";
+import { SellerPage, SellerStore, SellerApply } from "@/view/pages/seller";
+import { MyProfile, MyOrderList, Wishlist } from "@/view/user";
 
 const routes = [
   { path: "/", name: "index.page", component: Index, meta: { title: "Home" } },
@@ -39,8 +40,6 @@ const routes = [
     meta: { title: "seller-apply" },
   },
 
-
-
   {
     path: "/seller-store",
     name: "seller.store",
@@ -53,37 +52,33 @@ const routes = [
     path: "/auth/login",
     name: "user.login",
     component: UserLogin,
-    meta: { title: "Login" },
+    meta: { title: "Login", guest: true },
   },
 
   {
     path: "/auth/register",
     name: "user.register",
     component: UserRegister,
-    meta: { title: "Register" },
+    meta: { title: "Register", guest: true },
   },
   {
     path: "/My/profile",
     name: "user.profile",
     component: MyProfile,
-    meta: { title: "MyProfile" },
+    meta: { title: "MyProfile", requiresAuth: true },
   },
   {
     path: "/My/orders",
     name: "user.orders",
     component: MyOrderList,
-    meta: { title: "MyProfile" },
+    meta: { title: "MyProfile", requiresAuth: true },
   },
   {
     path: "/My/wishlist",
     name: "user.wishlist",
     component: Wishlist,
-    meta: { title: "Wishlist" },
+    meta: { title: "Wishlist", requiresAuth: true },
   },
-
- 
- 
-
 ];
 
 const router = createRouter({
@@ -96,7 +91,24 @@ const default_title = "404";
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || default_title;
-  next();
+
+  const loggedIn = useAuth();
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!loggedIn.user.meta) {
+      next({ name: "user.login" });
+    } else {
+      next();
+    }
+  } else if (to.matched.some((record) => record.meta.guest)) {
+    if (loggedIn.user.meta) {
+      next({ name: "user.profile" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
