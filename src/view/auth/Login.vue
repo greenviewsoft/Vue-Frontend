@@ -1,8 +1,10 @@
 <script setup>
 import { useAuth } from "@/stores/auth";
 import { reactive, ref } from "@vue/reactivity";
+import { storeToRefs } from "pinia";
 
 const auth = useAuth();
+const { errors} = storeToRefs(auth);
 
 const form = reactive({
   phone: "",
@@ -42,7 +44,9 @@ const toggleShow = () => {
                         class="form-control"
                         placeholder="phone no"
                         v-model="form.phone"
+                        :class="{ 'is-invalid': errors.phone }"
                       /><!--v-if-->
+                      <span class="text-danger" v-if="errors.phone">  {{ errors.phone[0] }}</span>
                     </div>
                     <div class="form-group">
                       <input
@@ -50,7 +54,9 @@ const toggleShow = () => {
                         class="form-control"
                         placeholder="password"
                         v-model="form.password"
+                        :class="{ 'is-invalid': errors.password }"
                       />
+                      <span class="text-danger" v-if="errors.password">  {{ errors.password[0] }}</span>
                       <span class="view-password" @click="toggleShow">
     <i class="fas text-success" :class="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword}"></i>
 </span>
