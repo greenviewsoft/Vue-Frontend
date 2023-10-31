@@ -2,7 +2,13 @@ import { defineStore } from "pinia";
 import  axios  from "axios";
 
 export const useAuth = defineStore("auth", {
-  state: () => ({ errors : {} }),
+  state: () => ({ 
+    user: {},
+}),
+
+    persist: {
+      paths: ['user'],
+    },
   actions: {
     async login(formData) {
      
@@ -13,7 +19,9 @@ export const useAuth = defineStore("auth", {
           );
 
           if (res.status === 200) {
-         console.log(res.data);
+            this.user = res.data;
+
+        // console.log(res.data);
             return new Promise((resolve) => {
               resolve(res.data);
             });

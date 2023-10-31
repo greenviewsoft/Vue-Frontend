@@ -2,16 +2,19 @@
 import { useAuth } from "@/stores/auth";
 import { reactive, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { Form, Field } from "vee-validate";
+import { Form, Field,  } from 'vee-validate';
 import * as yup from "yup";
+import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
 
+const router = useRouter()
 const schema = yup.object({
   phone: yup.string().required("Phone  is required"),
-  password: yup.string().required().min(8),
+  password: yup.string().required().min(3),
 });
 
 const auth = useAuth();
-const { errors } = storeToRefs(auth);
+const { errors} = storeToRefs(auth);
 
 // const form = reactive({
 //   phone: "",
@@ -21,16 +24,23 @@ const { errors } = storeToRefs(auth);
 const onSubmit = async (values, { setErrors }) => {
   const res = await auth.login(values);
   if (res.data) {
-    alert("login success");
-  } else {
+    router.push({name: "index.page"});
+    ElNotification({
+      title: "Success",
+      message: "Login Success",
+      type: "success",
+    });
+  }else {
     setErrors(res);
   }
+
+
 };
 
 const showPassword = ref(false);
 
 const toggleShow = () => {
-  console.log("toggleShow function called");
+  console.log('toggleShow function called');
   showPassword.value = !showPassword.value;
 };
 </script>
@@ -48,53 +58,44 @@ const toggleShow = () => {
                   <p>Use your credentials to access</p>
                 </div>
                 <div class="user-form-group" id="axiosForm">
-                  <Form
-                    class="user-form"
-                    @submit="onSubmit"
-                    :validation-schema="schema"
-                    v-slot="{ errors, isSubmitting }"
-                  >
+                  <Form   class="user-form" @submit="onSubmit"  :validation-schema="schema" 
+                  v-slot="{errors,isSubmitting}">
                     <!--v-if-->
                     <div class="form-group">
                       <Field
-                        name="phone"
+                      name="phone" 
                         type="text"
                         class="form-control"
                         placeholder="phone no"
+                      
                         :class="{ 'is-invalid': errors.phone }"
                       /><!--v-if-->
 
                       <!-- <ErrorMessage name="phone" class="text-danger"/> -->
-                      <span class="text-danger" v-if="errors.phone">
-                        {{ errors.phone }}</span
-                      >
+                      <span class="text-danger" v-if="errors.phone">  {{ errors.phone }}</span>
                     </div>
                     <div class="form-group">
                       <Field
-                        name="password"
-                        :type="showPassword ? 'text' : 'password'"
+                      name="password" 
+                        :type="showPassword ? 'text' : 'password' " 
                         class="form-control"
                         placeholder="password"
+                     
                         :class="{ 'is-invalid': errors.password }"
                       />
 
                       <!-- <ErrorMessage name="password" class="text-danger" /> -->
 
-                      <span class="text-danger" v-if="errors.password">
-                        {{ errors.password }}</span
-                      >
+                      <span class="text-danger" v-if="errors.password">  {{ errors.password }}</span>
                       <span class="view-password" @click="toggleShow">
-                        <i
-                          class="fas text-success"
-                          :class="{
-                            'fa-eye-slash': showPassword,
-                            'fa-eye': !showPassword,
-                          }"
-                        ></i>
-                      </span>
+    <i class="fas text-success" :class="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword}"></i>
+</span>
+
+
+
                     </div>
                     <div class="form-check mb-3">
-                      <input
+                      <input 
                         class="form-check-input"
                         type="checkbox"
                         id="check"
@@ -104,15 +105,13 @@ const toggleShow = () => {
                       >
                     </div>
                     <div class="form-button">
-                      <button type="submit" :disabled="isSubmitting">
-                        Login
-                        <span
-                          v-show="isSubmitting"
-                          class="spinner-border spinner-border-sm mr-1"
-                        ></span>
+                      <button type="submit" :disabled="isSubmitting" >
+                      Login
+                        <span v-show="isSubmitting"  class="spinner-border spinner-border-sm mr-1"></span>
                       </button>
+                    
                     </div>
-                  </Form>
+                  </Form >
                 </div>
               </div>
               <div class="user-form-remind">
